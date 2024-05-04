@@ -11,6 +11,10 @@ app.use(
   })
 );
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
+
 const PORT = 8080;
 
 app.listen(PORT, function () {
