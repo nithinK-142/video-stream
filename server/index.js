@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
-import multer from "multer";
-import { v4 as uuidv4 } from "uuid";
+import { upload } from "./multer.js";
 
 const app = express();
+const PORT = 8080;
 
 app.use(
   cors({
@@ -15,7 +15,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 
-const PORT = 8080;
+app.get("/", function (req, res) {
+  res.json({ message: "Video Streaming..." });
+});
+app.post("/upload", upload.single("file"), function (req, res) {
+  res.json({ message: "file uploaded." });
+});
 
 app.listen(PORT, function () {
   console.log(`Server is running on ${PORT}`);
